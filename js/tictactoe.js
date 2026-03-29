@@ -63,8 +63,87 @@ const BATTLEFIELD =
 //     ];
 
 //TODO: Check if the battle is over, and if so, announce the winner!
+let winner = null;
+let winningType = "";
+const size = BATTLEFIELD.length;
 
-// Check Horizontal
-// Check Vertical
-// Check Main Diagonal
-// Check Anti Diagonal
+for (let i = 0; i < size; i++) {
+    let firstValue = BATTLEFIELD[i][0];
+    let same = true;
+
+    if (firstValue === null) {
+        same = false;
+    } else {
+        for (let j = 1; j < size; j++) {
+            if (BATTLEFIELD[i][j] !== firstValue) {
+                same = false;
+            }
+        }
+    }
+
+    if (same) {
+        winner = firstValue;
+        winningType = "horizontal";
+    }
+}
+
+if(winner === null) {
+    for (let i = 0; i < size; i++) {
+        let firstValue = BATTLEFIELD[0][i];
+        let same = true;
+        if (firstValue === null) {
+            same = false;
+        } else {
+            for (let j = 1; j < size; j++) {
+                if (BATTLEFIELD[i][j] !== firstValue){
+                    same = false;
+                }
+            }
+        }
+        if (same) {
+            winner = firstValue;
+            winningType = "vertical";
+        }
+    }
+}
+
+if (winner === null) {
+    let firstValue = BATTLEFIELD[0][0];
+    let same = true;
+    if (firstValue === null) {
+        same = false;
+    } else {
+        for (let i = 1; i < size; i++) {
+            if (BATTLEFIELD[i][i] !== firstValue){
+                same = false;
+            }
+        }
+    }
+    if (same) {
+        winner = firstValue;
+        winningType = "main diagonal";
+    }
+}
+
+if (winner === null) {
+    let firstValue = BATTLEFIELD[0][size -1];
+    let same = true;
+    if (firstValue === null) {
+        same = false;
+    } else {
+        for (let i = 1; i < size; i++) {
+            if (BATTLEFIELD[i][size - 1 - i] !== firstValue){
+                same = false;
+            }
+        }
+    }
+    if (same) {
+        winner = firstValue;
+        winningType = "anti diagonal";
+    }
+}
+if (winner !== null) {
+    console.log(winner + " won the battle! Type: " + winningType);
+} else {
+    console.log("There is no winner.");
+}
